@@ -6,6 +6,10 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from .models import Product
+
+from .serializer import ProductSerializers
+
 # Create your views here.
 @api_view(['GET'])
 def getRoutes(request):
@@ -28,16 +32,15 @@ def getRoutes(request):
 
 
 @api_view(['GET'])
-def getProducts(request):  
-    return Response(products)  
+def getProducts(request):
+    products = Product.objects.all()
+    serializer = ProductSerializers(products, many=True)
+    return Response(serializer.data)  
 
 
 @api_view(['GET'])
 def getProduct(request, pk):
     product = None 
-    for i in products:
-        if i['_id'] == pk:
-            product = i
-            break
+    serailizer = ProductSerializers(product, many=False)
         
-    return Response(product)
+    return Response(serailizer.data)
