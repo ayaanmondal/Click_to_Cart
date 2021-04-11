@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from .models import Product
 
-from .serializer import ProductSerializers
+from .serializers import ProductSerializer
 
 # Create your views here.
 @api_view(['GET'])
@@ -34,13 +34,13 @@ def getRoutes(request):
 @api_view(['GET'])
 def getProducts(request):
     products = Product.objects.all()
-    serializer = ProductSerializers(products, many=True)
+    serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)  
 
 
 @api_view(['GET'])
 def getProduct(request, pk):
-    product = None 
-    serailizer = ProductSerializers(product, many=False)
+    product = Product.objects.get(_id=pk)
+    serailizer = ProductSerializer(product, many=False)
         
     return Response(serailizer.data)
