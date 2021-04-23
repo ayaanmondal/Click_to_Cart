@@ -44,7 +44,7 @@ function RegisterScreen({location, history }) {
             {loading && <Loader/>}
             <Form onSubmit={submitHandler}>
 
-            <Form.Group controlId='name'>
+                <Form.Group controlId='name'>
                     <Form.Label>Name </Form.Label>
                         <Form.Control
                             required
